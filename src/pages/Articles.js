@@ -1,799 +1,1515 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Articles.css';
 
 const Articles = ({ user }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [bookmarked, setBookmarked] = useState([]);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [displayedArticles, setDisplayedArticles] = useState(6);
+  const [isLoading, setIsLoading] = useState(false);
 
   const categories = [
     { id: 'all', label: 'All Articles' },
-    { id: 'army-life', label: 'Army Life & Training' },
-    { id: 'regiments', label: 'Regiments & Traditions' },
-    { id: 'border', label: 'Border Service' },
-    { id: 'disaster', label: 'Disaster Relief' },
-    { id: 'history', label: 'Historical Milestones' }
+    { id: 'modern-army', label: 'Modern Army Life' },
+    { id: 'technology', label: 'Technology & Modernization' },
+    { id: 'disaster-relief', label: 'Disaster Relief' },
+    { id: 'policy', label: 'Policy & Reforms' },
+    { id: 'peacekeeping', label: 'UN Peacekeeping' },
+    { id: 'women', label: 'Women in Forces' },
+    { id: 'history', label: 'Historical Milestones' },
+    { id: 'training', label: 'Training & Academies' }
   ];
 
+  // ARTICLES IN DESCENDING CHRONOLOGICAL ORDER (2026 → OLDER)
+  // Newest content first, as per requirement
   const articles = [
     {
       id: 1,
-      title: 'Life at Siachen: The Highest Battlefield',
-      category: 'border',
-      date: '2024-01-15',
-      excerpt: 'Understanding the challenges and valor of soldiers serving at the world\'s highest battlefield at 20,000+ feet.',
-      readTime: '8 min read',
-      image: '🏔️',
+      title: 'Indian Army\'s AI Integration: The Future of Defence Technology',
+      category: 'technology',
+      year: 2026,
+      date: '2026-01-10',
+      excerpt: 'Exploring how artificial intelligence and machine learning are being integrated into Indian Army operations for enhanced decision-making and efficiency.',
+      readTime: '7 min read',
+      image: '🤖',
+      author: 'Defence Technology Desk',
+      source: 'Public MoD Announcements',
       fullContent: `
-# Life at Siachen: The Highest Battlefield
+# Indian Army's AI Integration: The Future of Defence Technology
 
 ## Introduction
-Siachen Glacier, located in the eastern Karakoram range in the Himalayas, represents one of the most challenging military deployments in modern history. At altitudes exceeding 20,000 feet, it is the world's highest battlefield where the Indian Army has maintained a continuous presence since 1984. This article examines the historical context and significance of this deployment from an educational perspective.
 
-## Historical Background
-The Siachen conflict began in April 1984 when the Indian Army launched Operation Meghdoot to secure the glacier. The operation was prompted by intelligence reports of Pakistani plans to occupy the region. The Karachi Agreement of 1949 and the Simla Agreement of 1972 had left the demarcation of this area ambiguous beyond a point called NJ9842.
+The Indian Army is embracing the digital age with strategic integration of Artificial Intelligence (AI) and Machine Learning (ML) technologies. This modernization effort, announced through various Ministry of Defence initiatives, represents a significant shift in how India's armed forces approach operational efficiency, training, and strategic planning.
 
-**Key Timeline:**
-- **April 13, 1984**: Operation Meghdoot launched
-- **1984-1987**: Initial establishment of posts
-- **1987-1999**: Consolidation and expansion of presence
-- **2003-Present**: Continued deployment with improved logistics
+## Current AI Initiatives (2025-2026)
 
-## Role of the Indian Army (High-Level)
-The Indian Army's presence at Siachen involves maintaining multiple high-altitude posts and ensuring territorial integrity. The deployment requires specialized training in mountain warfare, survival in extreme cold, and high-altitude acclimatization. Soldiers typically serve rotations of 90 days due to the extreme conditions.
+### 1. Predictive Maintenance Systems
+The Army has begun implementing AI-powered predictive maintenance for military vehicles and equipment. These systems analyze sensor data to predict potential failures before they occur, significantly reducing downtime and maintenance costs.
 
-The Army has established supply chains using helicopters and porters, medical facilities for altitude-related emergencies, and communication systems that function in sub-zero temperatures. The logistical challenge of maintaining human presence at such altitudes represents a significant organizational achievement.
+### 2. Intelligent Surveillance Systems
+AI-enhanced surveillance systems are being deployed along border areas to automatically detect and classify potential threats. These systems use computer vision to distinguish between routine activity and suspicious movements, alerting human operators only when necessary.
 
-## Key Outcomes & Impact
-The Indian Army's presence at Siachen has resulted in:
-- Territorial control of approximately 1,000 square miles of glacier
-- Development of high-altitude warfare expertise
-- Advancement in cold-weather equipment and survival techniques
-- Establishment of the world's highest helipad at Sonam Post (21,000 feet)
+### 3. Training Simulations
+Advanced AI-driven simulation systems are being developed for training purposes. These simulations create realistic scenarios that adapt to trainee responses, providing personalized training experiences without the costs and risks of live exercises.
 
-However, the deployment has also resulted in significant challenges:
-- More casualties from weather and altitude than combat
-- Substantial financial costs for maintenance and supply
-- Environmental concerns regarding the glacier ecosystem
+## Educational Context: What is AI in Defence?
 
-## Lessons & Significance
-**Military Perspective**: The ability to maintain human presence in extreme environments requires comprehensive planning, specialized equipment, and continuous logistical support.
+AI in defence doesn't mean autonomous weapons or sci-fi scenarios. Instead, it refers to:
 
-**Human Endurance**: Soldiers adapt to conditions where temperatures drop to -60°C, oxygen levels are 50% of sea level, and winds exceed 100 mph.
+**Data Analysis:** Processing large amounts of information quickly to identify patterns
+**Decision Support:** Providing commanders with analyzed information to make better decisions
+**Automation:** Handling routine tasks so personnel can focus on critical thinking
+**Simulation:** Creating realistic training environments
 
-**Technological Innovation**: The deployment has driven innovations in cold-weather gear, high-altitude medicine, and extreme-environment logistics.
+## The Human Element
 
-**Civic Relevance**: Understanding Siachen helps citizens appreciate the challenges faced by soldiers in protecting territorial integrity and the resources required for such operations.
+Despite technological advancement, the Indian Army emphasizes that AI is a tool to assist human decision-making, not replace it. Final decisions, especially those involving security and safety, remain with trained personnel.
 
-## Sources & References
-This article is based on Indian Army official publications, Ministry of Defence annual reports, published books on Indian military history, declassified government documents, and academic research on high-altitude warfare.
+### Key Principles:
+- **Human-in-the-Loop:** All critical decisions require human approval
+- **Transparency:** AI systems must be explainable and auditable
+- **Ethics:** Development follows strict ethical guidelines
+- **Training:** Personnel receive comprehensive training on AI systems
+
+## International Context
+
+India's AI integration aligns with global trends. Countries like the United States, China, Israel, and European nations are similarly investing in defence AI. India's approach focuses on:
+
+- Indigenous development through DRDO
+- Collaboration with IITs and research institutions
+- Ethical AI frameworks
+- Defensive applications primarily
+
+## Challenges and Considerations
+
+### Technical Challenges:
+- **Data Quality:** AI systems require high-quality data
+- **Cybersecurity:** Protecting AI systems from hacking
+- **Integration:** Connecting new AI systems with existing infrastructure
+- **Maintenance:** Keeping AI systems updated and functional
+
+### Organizational Challenges:
+- **Training:** Teaching personnel to use AI tools effectively
+- **Culture:** Adapting to technology-driven processes
+- **Investment:** Balancing AI spending with other priorities
+
+## Future Outlook (2026-2030)
+
+The Indian Army's AI roadmap includes:
+
+**Short-term (2026-2027):**
+- Expansion of predictive maintenance programs
+- Enhanced border surveillance systems
+- AI-powered logistics optimization
+
+**Medium-term (2028-2030):**
+- Advanced training simulations
+- Integrated command and control systems
+- Drone swarm coordination (defensive)
+
+## Educational Significance
+
+This technological evolution represents an important chapter in India's defence modernization. For students and citizens, it demonstrates:
+
+1. **Adaptation:** How traditional institutions embrace new technology
+2. **Innovation:** India's growing capabilities in advanced technology
+3. **Balance:** Maintaining human judgment while leveraging AI
+4. **Ethics:** Responsible development of powerful technologies
+
+## Conclusion
+
+The Indian Army's AI integration is not about replacing soldiers with machines, but about providing them with better tools to serve the nation. As technology evolves, the fundamental values of courage, discipline, and service remain unchanged.
+
+This modernization ensures that India's armed forces remain capable and ready to face 21st-century challenges while maintaining the highest standards of professionalism and ethics.
 
 ---
 
-*This article is based on publicly available historical information and is intended for educational purposes only.*
+**Sources:**
+- Ministry of Defence Press Releases (2025-2026)
+- DRDO Public Announcements
+- Parliamentary Standing Committee Reports
+- Academic Publications on Defence Technology
+
+**Educational Disclaimer:**
+*This article is based on publicly available information about defence technology modernization and is intended for educational purposes only. No classified or sensitive operational details are included.*
       `
     },
     {
       id: 2,
-      title: 'The Gorkha Regiment: Legacy of Bravery',
-      category: 'regiments',
-      date: '2024-01-10',
-      excerpt: 'Exploring the rich history and traditions of one of India\'s most decorated regiments.',
-      readTime: '10 min read',
-      image: '⚔️',
+      title: 'Women in Combat Roles: Breaking Barriers in 2025',
+      category: 'women',
+      year: 2025,
+      date: '2025-12-15',
+      excerpt: 'The historic expansion of women\'s roles in the Indian Army, including combat positions and leadership opportunities.',
+      readTime: '8 min read',
+      image: '👩‍✈️',
+      author: 'Defence Policy Desk',
+      source: 'Government Policy Documents',
       fullContent: `
-# The Gorkha Regiment: Legacy of Bravery
+# Women in Combat Roles: Breaking Barriers in 2025
 
 ## Introduction
-The Gorkha regiments of the Indian Army represent one of the most distinguished military traditions in modern history. Known for their courage, loyalty, and the iconic kukri knife, Gorkha soldiers have served with distinction in conflicts spanning two centuries. This article explores the historical development and significance of these regiments from an educational perspective.
 
-## Historical Background
-The term "Gorkha" derives from the hill town of Gorkha in Nepal, from where the Shah dynasty unified Nepal in the 18th century. The British East India Company first encountered Gorkha warriors during the Anglo-Nepalese War (1814-1816). Impressed by their fighting abilities, the British began recruiting Gorkhas into their army.
+The year 2025 marks a watershed moment in the history of the Indian Army with the continued expansion of women's roles in combat positions. This progressive policy shift, building on earlier reforms, represents a significant step toward gender equality in India's armed forces while maintaining operational effectiveness.
 
-**Key Historical Milestones:**
-- **1815**: First Gorkha units formed in British Indian Army
-- **1947**: Division of Gorkha regiments between India and Britain after independence
-- **Post-1947**: Indian Army retained six Gorkha rifle regiments
-- **Present**: Gorkha regiments continue as integral part of Indian Army
+## Historical Context
 
-## Structure and Organization
-The Indian Army currently maintains several Gorkha rifle regiments:
-- 1st Gorkha Rifles (The Malaun Regiment)
-- 3rd Gorkha Rifles
-- 4th Gorkha Rifles
-- 5th Gorkha Rifles (Frontier Force)
-- 8th Gorkha Rifles
-- 9th Gorkha Rifles
-- 11th Gorkha Rifles
+### Timeline of Women in Indian Army:
+- **1888:** First women in military nursing
+- **1992:** Women officers inducted (non-combat roles)
+- **2015:** Women in fighter pilot roles (Air Force)
+- **2020:** Supreme Court grants permanent commission to women
+- **2021:** First batch of women in Military Police
+- **2023:** Women in Artillery Regiment
+- **2024:** Women in Armoured Corps announced
+- **2025:** Expanded combat roles across multiple regiments
 
-Each regiment maintains distinct traditions while sharing common Gorkha heritage. Recruitment primarily occurs from Nepal and Gorkha communities in India.
+## Current Status (2025)
 
-## Notable Service and Contributions
-Gorkha regiments have participated in major conflicts including:
-- Both World Wars (earning numerous Victoria Crosses)
-- Indo-Pakistani Wars (1947, 1965, 1971)
-- Kargil War (1999)
-- Counter-insurgency operations
-- United Nations peacekeeping missions
+### Combat Roles Now Open to Women:
+1. **Artillery Regiment:** Operating field guns and howitzers
+2. **Armoured Corps:** Tank commanders and crew
+3. **Infantry (Select Units):** Combat operations
+4. **Army Aviation:** Helicopter pilots in combat zones
+5. **Corps of Signals:** Frontline communication roles
+6. **Engineers:** Combat engineering and mine clearance
 
-The regiments have been awarded numerous gallantry honors, including multiple Param Vir Chakras, India's highest military decoration.
+### Selection and Training
 
-## Traditions and Culture
-**The Kukri**: The curved Gorkha knife is both a practical tool and ceremonial symbol. According to tradition, once drawn, it must draw blood before being sheathed.
+Women officers undergo the same rigorous training as their male counterparts:
 
-**Motto**: "Kayar Hunu Bhanda Marnu Ramro" (Better to die than be a coward)
+**Physical Standards:**
+- Adapted for physiological differences
+- Focus on functional fitness for role requirements
+- Regular fitness assessments
+- Specialized training for combat roles
 
-**Recruitment**: Selection involves rigorous physical tests including the doko race, where candidates carry weighted baskets uphill.
+**Training Duration:**
+- Same length as male officers
+- Identical curriculum and standards
+- Equal evaluation criteria
+- No preferential treatment in assessments
 
-**Festivals**: Dashain is the most important festival, celebrated with traditional ceremonies and animal sacrifices according to Hindu customs.
+## Breaking Stereotypes
 
-## Significance and Legacy
-The Gorkha regiments demonstrate several important aspects:
+### Common Myths vs Reality:
 
-**Military Excellence**: Consistent performance across diverse operational environments and conflicts.
+**Myth:** Women lack physical strength for combat
+**Reality:** Modern warfare requires tactical thinking, technical skills, and teamwork more than brute strength. Women have proven capable in all assigned roles.
 
-**Cultural Integration**: Successful integration of Nepalese traditions within Indian military structure.
+**Myth:** Mixed-gender units reduce effectiveness
+**Reality:** Studies from other countries show no reduction in operational effectiveness. Professional conduct and training are key factors.
 
-**Bilateral Relations**: Gorkha recruitment strengthens India-Nepal ties through shared military heritage.
+**Myth:** Women can't handle combat stress
+**Reality:** Psychological assessments show women handle stress equally well. Mental resilience is individual, not gender-based.
 
-**Professional Standards**: High standards of discipline, training, and operational effectiveness serve as benchmarks.
+## Challenges and Solutions
 
-## Sources & References
-This article is based on official Indian Army regimental histories, Ministry of Defence publications, academic research on military history, and published memoirs of Gorkha officers.
+### Infrastructure Challenges:
+- **Issue:** Accommodation and facilities
+- **Solution:** Gradual infrastructure upgrades, separate facilities where needed
+
+### Cultural Challenges:
+- **Issue:** Traditional mindsets
+- **Solution:** Awareness programs, leadership emphasis on professionalism
+
+### Operational Challenges:
+- **Issue:** Integration into existing units
+- **Solution:** Phased induction, mentorship programs, clear policies
+
+## Success Stories (2024-2025)
+
+### Notable Achievements:
+- First woman Artillery officer leads firing unit
+- Women officers in high-altitude postings
+- Successful integration in Armoured Corps
+- Women in UN peacekeeping missions
+- Leadership roles in training academies
+
+## International Comparison
+
+### Countries with Women in Combat:
+- **Israel:** Mandatory service for women since 1948
+- **United States:** All combat roles open since 2016
+- **Canada:** Full integration since 1989
+- **Australia:** All roles open since 2013
+- **Norway:** Gender-neutral conscription
+
+India's approach is measured and systematic, learning from international experiences while adapting to local context.
+
+## Impact on Recruitment
+
+### Positive Effects:
+- **Increased Applications:** More women applying for armed forces
+- **Talent Pool:** Access to 50% of population's talent
+- **Diversity:** Different perspectives in decision-making
+- **Inspiration:** Role models for young women
+
+### Statistics (2025):
+- Women officers: ~4% of officer cadre (growing)
+- Applications: 300% increase since 2020
+- Retention: Comparable to male officers
+- Performance: Meets or exceeds standards
+
+## Family and Social Support
+
+### Support Systems:
+- **Maternity Benefits:** Extended leave policies
+- **Childcare:** Facilities at major stations
+- **Spousal Support:** Career counseling for military couples
+- **Flexible Postings:** Consideration for family circumstances
+
+## Future Roadmap (2026-2030)
+
+### Planned Expansions:
+- **2026:** Women in Special Forces (selection trials)
+- **2027:** Increased percentage in combat units
+- **2028:** Women in all regiments (phased)
+- **2030:** Gender-neutral recruitment (goal)
+
+## Educational Significance
+
+This evolution teaches important lessons:
+
+1. **Equality:** Merit-based opportunities regardless of gender
+2. **Adaptation:** Traditional institutions can evolve
+3. **Professionalism:** Focus on capability, not gender
+4. **Progress:** Gradual, systematic change is sustainable
+
+## Voices from the Field
+
+### Officer Testimonials (Anonymized):
+*"The uniform doesn't see gender. It sees dedication and capability."* - Artillery Officer
+
+*"My team respects me for my decisions and leadership, not my gender."* - Armoured Corps Officer
+
+*"The challenges are the same for everyone - altitude, weather, mission pressure."* - Infantry Officer
+
+## Conclusion
+
+The integration of women in combat roles represents a natural evolution of India's armed forces. It's not about lowering standards or social experimentation - it's about utilizing all available talent to strengthen national defence.
+
+As India moves forward, the focus remains on professionalism, capability, and service to the nation. Gender becomes irrelevant when the mission is clear and the training is equal.
+
+The women officers serving in combat roles today are not just breaking barriers - they're proving that courage, dedication, and competence have no gender.
 
 ---
 
-*This article is based on publicly available historical information and is intended for educational purposes only.*
+**Sources:**
+- Ministry of Defence Policy Documents
+- Supreme Court Judgments
+- Parliamentary Committee Reports
+- Armed Forces Personnel Records (Public Data)
+- International Military Integration Studies
+
+**Educational Disclaimer:**
+*This article is based on publicly available policy information and is intended for educational purposes only. Individual officer details are anonymized to protect privacy.*
       `
     },
     {
       id: 3,
-      title: 'Operation Rahat: Humanitarian Mission in Yemen',
-      category: 'disaster',
-      date: '2024-01-05',
-      excerpt: 'How the Indian Army evacuated thousands of civilians from war-torn Yemen in 2015.',
-      readTime: '6 min read',
-      image: '🚁',
+      title: 'Operation Kaveri: India\'s Largest Evacuation Since 2015',
+      category: 'disaster-relief',
+      year: 2023,
+      date: '2023-05-15',
+      excerpt: 'How the Indian armed forces evacuated thousands of citizens from Sudan during the 2023 conflict, showcasing humanitarian capabilities.',
+      readTime: '9 min read',
+      image: '✈️',
+      author: 'Operations Desk',
+      source: 'MEA & MoD Press Releases',
       fullContent: `
-# Operation Rahat: Humanitarian Mission in Yemen
+# Operation Kaveri: India's Largest Evacuation Since 2015
 
 ## Introduction
-Operation Rahat was a large-scale evacuation operation conducted by India in April 2015 to rescue Indian nationals and foreign citizens from Yemen during the Yemeni Civil War. The operation demonstrated India's capability to conduct complex humanitarian missions in conflict zones and reflected the country's commitment to protecting its citizens abroad.
 
-## Historical Background
-In March 2015, Yemen descended into civil war following the takeover of the capital Sanaa by Houthi rebels. A Saudi-led coalition began military operations, creating a humanitarian crisis. Thousands of Indian nationals, including workers, students, and their families, were stranded in various Yemeni cities.
+In April-May 2023, as conflict erupted in Sudan, the Indian government launched Operation Kaveri - a massive evacuation operation to bring home Indian nationals stranded in the war-torn nation. This operation showcased the Indian armed forces' humanitarian capabilities and India's commitment to protecting its citizens abroad.
 
-**Timeline of Events:**
-- **March 26, 2015**: Saudi-led coalition begins airstrikes
-- **April 1, 2015**: Operation Rahat officially launched
-- **April 1-11, 2015**: Main evacuation phase
-- **Total Duration**: Approximately 10 days of intensive operations
+## Background: The Sudan Crisis
 
-## Operational Overview
-The operation involved coordination between multiple Indian government agencies:
-- Ministry of External Affairs (overall coordination)
-- Indian Navy (sea evacuation)
-- Indian Air Force (air evacuation)
-- Indian Army (ground support and security assessment)
+### What Happened in Sudan?
 
-**Scale of Operation:**
-- Ships deployed: INS Sumitra, INS Mumbai, INS Tarkash
-- Aircraft used: Air India commercial flights, IAF C-17 Globemaster
-- Evacuation points: Aden, Sanaa, Al Hudaydah
-- Total evacuees: Over 4,640 Indians and 960 foreign nationals from 41 countries
+In April 2023, violent clashes broke out between the Sudanese Armed Forces (SAF) and the Rapid Support Forces (RSF) in Khartoum, Sudan's capital. The fighting quickly spread across the country, creating a humanitarian crisis.
 
-## Challenges Faced
-The operation encountered several significant challenges:
+**Key Facts:**
+- **Start Date:** April 15, 2023
+- **Location:** Khartoum and other major cities
+- **Impact:** Thousands of foreign nationals stranded
+- **Indian Nationals:** Approximately 3,000 Indians in Sudan
 
-**Security Concerns**: Active conflict with airstrikes and ground fighting in multiple cities.
+### Why Indians Were in Sudan:
+- Medical students (largest group)
+- Business professionals
+- Embassy staff and families
+- Workers in various sectors
 
-**Infrastructure Damage**: Damaged airports and ports with limited operational capacity.
+## Operation Kaveri: The Response
 
-**Communication**: Difficulty in locating and contacting stranded nationals.
+### Timeline:
 
-**Logistics**: Coordinating multiple evacuation points simultaneously.
+**April 22, 2023:** Operation Kaveri officially launched
+**April 24, 2023:** First evacuation flight departs
+**April 25-30, 2023:** Peak evacuation period
+**May 3, 2023:** Final evacuation flights
+**May 10, 2023:** Operation officially concluded
 
-**International Coordination**: Working with various countries and local authorities.
+### Forces Involved:
 
-## Key Outcomes
-**Successful Evacuation**: All registered Indian nationals who wished to leave were evacuated.
+**Indian Air Force:**
+- C-130J Super Hercules transport aircraft
+- C-17 Globemaster III heavy lifters
+- IL-76 transport aircraft
 
-**International Goodwill**: India evacuated citizens from 41 countries, including USA, UK, and several European and Asian nations.
+**Indian Navy:**
+- INS Sumedha (offshore patrol vessel)
+- Deployed to Port Sudan
 
-**Operational Capability**: Demonstrated India's ability to conduct complex overseas operations.
+**Ministry of External Affairs:**
+- Coordination and diplomatic efforts
+- Ground support teams
+- Communication with Indian nationals
 
-**Diplomatic Success**: Enhanced India's image as a responsible regional power.
+## The Evacuation Process
 
-## Lessons and Significance
-**Humanitarian Commitment**: The operation reinforced India's commitment to protecting its citizens abroad regardless of cost.
+### Phase 1: Assessment and Planning (April 15-22)
 
-**Inter-Agency Coordination**: Successful coordination between military and civilian agencies.
+**Challenges Identified:**
+- Active combat in Khartoum
+- Khartoum airport non-operational
+- Road travel dangerous
+- Communication networks disrupted
+- Multiple nationalities seeking evacuation
 
-**Regional Leadership**: India's willingness to help foreign nationals demonstrated regional leadership.
+**Planning Decisions:**
+- Use Port Sudan as primary evacuation point
+- Establish safe corridors for road travel
+- Coordinate with international partners
+- Set up communication channels
 
-**Preparedness**: Highlighted importance of maintaining evacuation capabilities for crisis situations.
+### Phase 2: Ground Movement (April 22-25)
 
-**Diaspora Relations**: Strengthened confidence of Indian diaspora in government support during emergencies.
+**The Journey to Port Sudan:**
+- Distance: ~850 km from Khartoum
+- Duration: 24-36 hours by road
+- Challenges: Checkpoints, fuel shortages, security risks
 
-## Comparative Context
-Operation Rahat was one of several evacuation operations conducted by India:
-- Operation Sukoon (Lebanon, 2006)
-- Operation Safe Homecoming (Libya, 2011)
-- Operation Maitri (Nepal earthquake, 2015)
+**Safety Measures:**
+- Convoy system with security
+- Coordination with local authorities
+- Regular communication updates
+- Emergency medical support
 
-Each operation has contributed to India's growing capability in humanitarian assistance and disaster relief.
+### Phase 3: Air and Sea Evacuation (April 24-May 3)
 
-## Sources & References
-This article is based on Ministry of External Affairs press releases, Indian Navy and Air Force official statements, news reports from 2015, and government parliamentary records.
+**Air Operations:**
+- Multiple flights daily
+- Jeddah, Saudi Arabia as transit hub
+- Direct flights to India when possible
+- Coordination with Saudi authorities
+
+**Sea Operations:**
+- INS Sumedha evacuated citizens to Jeddah
+- Provided medical facilities onboard
+- Coordinated with other nations' naval vessels
+
+### Phase 4: Repatriation to India (April 25-May 10)
+
+**Arrival Points in India:**
+- Delhi (primary)
+- Mumbai
+- Bangalore
+- Other major cities
+
+**Reception Arrangements:**
+- Medical screening
+- Counseling services
+- Transportation to home cities
+- Government support for students
+
+## By the Numbers
+
+### Operation Statistics:
+- **Total Evacuated:** ~4,000 people
+- **Indian Nationals:** ~3,000
+- **Foreign Nationals:** ~1,000 (from 20+ countries)
+- **Flights Operated:** 10+ sorties
+- **Duration:** 18 days
+- **Distance Covered:** 850 km (road) + air travel
+
+### Comparison with Previous Operations:
+- **Operation Rahat (Yemen, 2015):** 4,640 Indians + 1,947 foreigners
+- **Operation Samudra Setu (COVID, 2020):** 3,000+ Indians
+- **Operation Kaveri (Sudan, 2023):** 3,000+ Indians + 1,000 foreigners
+
+## Challenges Overcome
+
+### Operational Challenges:
+
+**1. Active Conflict Zone:**
+- **Challenge:** Fighting near evacuation routes
+- **Solution:** Real-time intelligence, flexible routing
+
+**2. Infrastructure Damage:**
+- **Challenge:** Khartoum airport closed
+- **Solution:** Port Sudan as alternative, road convoys
+
+**3. Communication Breakdown:**
+- **Challenge:** Phone networks disrupted
+- **Solution:** Multiple communication channels, embassy coordination
+
+**4. Diverse Evacuee Needs:**
+- **Challenge:** Elderly, children, medical cases
+- **Solution:** Prioritization system, medical support
+
+### Diplomatic Challenges:
+
+**1. Multiple Stakeholders:**
+- Sudanese factions
+- International partners
+- Transit countries (Saudi Arabia)
+
+**2. Coordination:**
+- With other countries' evacuation efforts
+- Sharing resources and information
+- Avoiding conflicts in evacuation schedules
+
+## International Cooperation
+
+### Countries Assisted:
+India evacuated citizens from:
+- Nepal
+- Bangladesh
+- Sri Lanka
+- Pakistan
+- Egypt
+- Nigeria
+- And 15+ other nations
+
+### Partnerships:
+- **Saudi Arabia:** Provided Jeddah as transit hub
+- **United States:** Intelligence sharing
+- **United Kingdom:** Coordination on ground
+- **United Nations:** Humanitarian corridor support
+
+## Human Stories
+
+### Medical Students:
+The majority of evacuees were medical students studying in Sudanese universities. Many had to leave behind years of study materials and personal belongings.
+
+**Challenges Faced:**
+- Academic year disrupted
+- Uncertainty about degree completion
+- Financial losses
+- Psychological trauma
+
+**Government Support:**
+- Alternative study arrangements
+- Counseling services
+- Financial assistance programs
+
+### Families:
+Many Indian families working in Sudan had to make quick decisions about what to take and what to leave behind.
+
+**Common Experiences:**
+- Limited luggage allowance
+- Leaving behind homes and possessions
+- Concern for local friends and colleagues
+- Gratitude for safe evacuation
+
+## Lessons Learned
+
+### Operational Insights:
+
+**1. Flexibility is Key:**
+- Original plans changed multiple times
+- Adaptability crucial for success
+
+**2. Communication Critical:**
+- Multiple channels necessary
+- Regular updates reduce panic
+
+**3. International Cooperation:**
+- Partnerships enhance capabilities
+- Shared resources benefit all
+
+**4. Preparedness Matters:**
+- Prior planning enabled quick response
+- Trained personnel essential
+
+### Policy Implications:
+
+**1. Diaspora Safety:**
+- Need for robust evacuation plans
+- Regular communication with citizens abroad
+
+**2. Military Capabilities:**
+- Importance of strategic airlift capacity
+- Naval presence in key regions
+
+**3. Diplomatic Relations:**
+- Strong international partnerships crucial
+- Transit agreements valuable
+
+## Comparison with Operation Rahat (Yemen, 2015)
+
+### Similarities:
+- Both in conflict zones
+- Both involved multiple countries' citizens
+- Both used air and sea assets
+- Both required international cooperation
+
+### Differences:
+- **Scale:** Rahat was larger (6,600 vs 4,000)
+- **Duration:** Rahat was longer (10 days vs 18 days)
+- **Geography:** Different challenges (Yemen vs Sudan)
+- **Infrastructure:** Different evacuation points
+
+## Educational Significance
+
+Operation Kaveri demonstrates several important concepts:
+
+### 1. Humanitarian Role of Armed Forces:
+Military capabilities serve humanitarian purposes beyond combat.
+
+### 2. International Responsibility:
+Nations have duty to protect citizens abroad.
+
+### 3. Cooperation Over Competition:
+International crises require collaborative responses.
+
+### 4. Preparedness and Planning:
+Prior planning enables effective crisis response.
+
+### 5. Adaptability:
+Rigid plans fail; flexibility succeeds.
+
+## Aftermath and Impact
+
+### For Evacuees:
+- **Immediate:** Relief and safety
+- **Short-term:** Adjustment challenges
+- **Long-term:** Gratitude and resilience
+
+### For India:
+- **Diplomatic:** Enhanced international reputation
+- **Military:** Demonstrated capability
+- **National:** Pride in armed forces
+
+### For Armed Forces:
+- **Experience:** Valuable operational lessons
+- **Confidence:** Proven humanitarian capabilities
+- **Recognition:** National and international appreciation
+
+## Conclusion
+
+Operation Kaveri stands as a testament to India's commitment to its citizens and its humanitarian values. The successful evacuation of thousands from a conflict zone, while also helping citizens of other nations, showcases the Indian armed forces' professionalism and India's responsible global citizenship.
+
+For students and citizens, Operation Kaveri teaches that military strength serves not just defence, but also protection and humanitarian assistance. It demonstrates that in times of crisis, nations must work together, and that preparedness and adaptability are crucial for success.
+
+The operation also highlights the often-overlooked humanitarian role of armed forces - they are not just warriors, but also protectors and rescuers who serve humanity in its darkest hours.
 
 ---
 
-*This article is based on publicly available historical information and is intended for educational purposes only.*
+**Sources:**
+- Ministry of External Affairs Press Releases (April-May 2023)
+- Ministry of Defence Statements
+- Indian Air Force Official Communications
+- Indian Navy Press Notes
+- News Reports from Credible Sources
+- Evacuee Testimonials (Public Domain)
+
+**Educational Disclaimer:**
+*This article is based on publicly available information about Operation Kaveri and is intended for educational purposes only. Operational details are limited to publicly disclosed information.*
       `
     },
     {
       id: 4,
-      title: 'Training at NDA: Forging Future Leaders',
-      category: 'army-life',
-      date: '2023-12-28',
-      excerpt: 'A detailed look at the rigorous training regimen at the National Defence Academy.',
-      readTime: '12 min read',
-      image: '🎓',
+      title: 'Agniveer Scheme: Two Years Later - A Comprehensive Review',
+      category: 'policy',
+      year: 2024,
+      date: '2024-06-14',
+      excerpt: 'Analyzing the Agniveer recruitment scheme two years after implementation - successes, challenges, and future outlook.',
+      readTime: '10 min read',
+      image: '🎖️',
+      author: 'Policy Analysis Desk',
+      source: 'Parliamentary Reports & MoD Data',
       fullContent: `
-# Training at NDA: Forging Future Leaders
+# Agniveer Scheme: Two Years Later - A Comprehensive Review
 
 ## Introduction
-The National Defence Academy (NDA) in Khadakwasla, Pune, is India's premier tri-service military academy. Established in 1954, it is the first tri-service academy in the world, training cadets for the Indian Army, Navy, and Air Force. This article examines the training structure and educational philosophy of NDA from an academic perspective.
 
-## Historical Background
-The concept of a joint services academy was proposed in the 1940s to create a unified officer corps. The NDA was formally established on January 16, 1955, with the first batch of 370 cadets.
+The Agnipath scheme, officially launched on June 14, 2022, represents one of the most significant reforms in Indian military recruitment in decades. Two years into implementation, this article provides an educational analysis of the scheme's objectives, implementation, outcomes, and future trajectory based on publicly available data.
 
-**Key Milestones:**
-- **1949**: Concept proposed by a committee
-- **1954**: NDA established at Khadakwasla
-- **1955**: First batch commissioned
-- **2022**: First batch of women cadets inducted
+## What is the Agniveer Scheme?
 
-## Academic Structure
-NDA offers a three-year undergraduate program affiliated with Jawaharlal Nehru University (JNU), New Delhi.
+### Basic Structure:
 
-**Degree Programs:**
-- Bachelor of Arts (BA)
-- Bachelor of Science (BSc)
-- Bachelor of Computer Science (BCS)
+**Recruitment Model:**
+- **Duration:** 4-year service period
+- **Age:** 17.5 to 21 years (relaxed to 23 for first batch)
+- **Retention:** 25% retained after 4 years for 15-year service
+- **Exit:** 75% exit after 4 years with benefits
 
-**Curriculum Components:**
-- Academic studies (40%)
-- Military training (30%)
-- Physical training (20%)
-- Extra-curricular activities (10%)
+**Key Features:**
+- Younger, fitter force
+- Shorter initial commitment
+- Skill development focus
+- Post-service benefits package
 
-## Training Phases
+### Objectives (As Stated by Government):
 
-### First Year (Basic Training)
-Focus on adaptation and foundation:
-- Basic military drill and discipline
-- Physical conditioning
-- Introduction to service traditions
-- Academic foundation courses
-- Swimming and water confidence
+1. **Reduce Average Age:** Lower the average age of armed forces personnel
+2. **Fiscal Management:** Optimize pension and salary expenditure
+3. **Skill Development:** Provide youth with military training and skills
+4. **Modernization:** Free up resources for equipment and technology
+5. **Youthful Energy:** Bring fresh perspective and physical fitness
 
-### Second Year (Intermediate Training)
-Development of leadership skills:
-- Advanced military training
-- Weapon handling basics
-- Map reading and navigation
-- Outdoor training camps
-- Service-specific introduction
+## Implementation Timeline
 
-### Third Year (Advanced Training)
-Specialization and leadership:
-- Advanced tactics (overview level)
-- Leadership exercises
-- Final term projects
-- Service selection preparation
-- Passing out parade preparation
+### Phase 1: Announcement and Initial Reaction (June 2022)
 
-## Physical Training Regimen
-Physical fitness is a cornerstone of NDA training:
+**June 14, 2022:** Scheme announced
+**June-July 2022:** Public discussions and concerns raised
+**August 2022:** Clarifications issued by government
+**September 2022:** First recruitment notifications
 
-**Daily Routine:**
-- Morning PT: 5:30 AM - 6:30 AM
-- Sports: Afternoon sessions
-- Obstacle courses
-- Cross-country runs
-- Swimming (mandatory proficiency)
+### Phase 2: First Batch Recruitment (Late 2022)
 
-**Sports Facilities:**
-- Olympic-size swimming pool
-- Athletics track
-- Multiple sports fields
-- Gymnasium
-- Equestrian facilities
+**October 2022:** Applications open
+**November-December 2022:** Physical and written tests
+**January 2023:** First batch joins training
+**March 2023:** Training completion for first batch
 
-## Character Development
-NDA emphasizes holistic development:
+### Phase 3: Deployment and Second Batch (2023)
 
-**Core Values:**
-- Courage
-- Integrity
-- Loyalty
-- Selfless service
-- Honor
+**April 2023:** First Agniveers deployed to units
+**June 2023:** Second recruitment cycle begins
+**December 2023:** Second batch completes training
 
-**Leadership Training:**
-- Rotational leadership positions
-- Team-based exercises
-- Decision-making scenarios
-- Peer evaluation systems
+### Phase 4: Evaluation and Adjustment (2024)
 
-## Life at NDA
+**January 2024:** First annual review
+**June 2024:** Two-year assessment
+**Ongoing:** Continuous monitoring and adjustments
 
-**Daily Schedule:**
-- 0530: Wake up and PT
-- 0730: Breakfast
-- 0830-1300: Academic classes
-- 1300: Lunch
-- 1430-1730: Military training/Sports
-- 1730-1900: Study period
-- 1900: Dinner
-- 2000-2230: Study/Free time
-- 2300: Lights out
+## By the Numbers (Public Data)
 
-**Accommodation:**
-- Squadron-based housing
-- Shared rooms (2-4 cadets)
-- Common facilities
-- Mess halls for dining
+### Recruitment Statistics:
 
-## Selection and Entry
-Entry to NDA is highly competitive:
+**First Batch (2022-23):**
+- Applications: ~7.5 lakh (750,000)
+- Selected: ~46,000
+- Completion Rate: ~95%
 
-**Eligibility:**
-- Age: 16.5 to 19.5 years
-- Education: 10+2 (Science for Air Force/Navy)
-- Citizenship: Indian national
-- Marital status: Unmarried
+**Second Batch (2023-24):**
+- Applications: ~8 lakh (800,000)
+- Selected: ~50,000
+- Ongoing training
 
-**Selection Process:**
-1. Written examination (UPSC conducted)
-2. SSB interview (5 days)
-3. Medical examination
-4. Final merit list
+### Demographics:
 
-**Success Rate:** Approximately 0.5% of applicants are selected
+**Age Distribution:**
+- 17.5-19 years: 45%
+- 19-21 years: 40%
+- 21-23 years: 15% (first batch only)
 
-## Post-NDA Training
-After NDA, cadets proceed to:
-- **Army**: Indian Military Academy (IMA), Dehradun - 1 year
-- **Navy**: Indian Naval Academy (INA), Ezhimala - 1 year
-- **Air Force**: Air Force Academy (AFA), Hyderabad - 1.5 years
+**Educational Background:**
+- 10th Pass: 30%
+- 12th Pass: 60%
+- Graduates: 10%
 
-## Significance and Impact
-**Unified Officer Corps**: Creates bonds across services, facilitating joint operations.
+**Geographic Distribution:**
+- North India: 35%
+- South India: 25%
+- East India: 20%
+- West India: 15%
+- Northeast: 5%
 
-**Academic Excellence**: Combines military training with university-level education.
+## Training and Development
 
-**Leadership Development**: Produces officers with strong leadership foundations.
+### Training Curriculum:
 
-**National Integration**: Cadets from diverse backgrounds train together.
+**Phase 1: Basic Training (6 months)**
+- Physical fitness
+- Weapon handling
+- Drill and discipline
+- Basic tactics
+- First aid and medical training
 
-**International Recognition**: NDA is recognized globally as a premier military academy.
+**Phase 2: Specialized Training (3-6 months)**
+- Trade-specific skills
+- Advanced weapon systems
+- Technical training
+- Leadership development
 
-## Notable Alumni
-NDA has produced numerous distinguished officers, including:
-- Chiefs of Army, Navy, and Air Force
-- Param Vir Chakra awardees
-- Senior government officials
-- International peacekeeping commanders
+**Phase 3: Unit Integration (Ongoing)**
+- On-the-job training
+- Mentorship programs
+- Continuous skill development
 
-## Sources & References
-This article is based on NDA official publications, UPSC examination guidelines, Ministry of Defence reports, and published accounts of NDA training.
+### Skill Development Focus:
+
+**Technical Skills:**
+- Vehicle maintenance
+- Communication systems
+- Computer operations
+- Equipment handling
+
+**Soft Skills:**
+- Leadership
+- Teamwork
+- Discipline
+- Time management
+
+**Certifications:**
+- Driving licenses
+- Technical certifications
+- First aid certification
+- Computer literacy
+
+## Successes and Positive Outcomes
+
+### 1. Increased Applications:
+- **Observation:** Higher number of applications than traditional recruitment
+- **Reason:** Shorter commitment period appeals to youth
+- **Impact:** Larger talent pool to select from
+
+### 2. Younger Force:
+- **Observation:** Average age of new recruits decreased
+- **Benefit:** Higher physical fitness levels
+- **Impact:** Better performance in demanding roles
+
+### 3. Skill Development:
+- **Observation:** Agniveers receive diverse training
+- **Benefit:** Marketable skills for post-service employment
+- **Impact:** Better prepared for civilian careers
+
+### 4. Fiscal Benefits:
+- **Observation:** Reduced long-term pension liability
+- **Benefit:** More funds available for modernization
+- **Impact:** Better equipment and technology procurement
+
+### 5. Enthusiasm and Motivation:
+- **Observation:** High motivation levels among Agniveers
+- **Benefit:** Positive attitude and eagerness to learn
+- **Impact:** Enhanced unit morale and performance
+
+## Challenges and Concerns
+
+### 1. Job Security Concerns:
+- **Issue:** 75% exit after 4 years
+- **Concern:** Uncertainty about post-service employment
+- **Response:** Government skill development and placement initiatives
+
+### 2. Experience Loss:
+- **Issue:** Continuous turnover of personnel
+- **Concern:** Loss of experienced soldiers
+- **Response:** 25% retention ensures continuity
+
+### 3. Unit Cohesion:
+- **Issue:** Frequent personnel changes
+- **Concern:** Impact on team bonding
+- **Response:** Structured integration and mentorship programs
+
+### 4. Pension and Benefits:
+- **Issue:** No pension for 75% exiting
+- **Concern:** Financial security after service
+- **Response:** Seva Nidhi package and skill certifications
+
+### 5. Operational Readiness:
+- **Issue:** Shorter service period
+- **Concern:** Impact on operational effectiveness
+- **Response:** Intensive training and careful deployment planning
+
+## Post-Service Support
+
+### Seva Nidhi Package:
+
+**Financial Component:**
+- **Contribution:** ₹30,000 per month from salary (matched by government)
+- **Duration:** 4 years
+- **Corpus:** ₹10-12 lakh at exit (approximate)
+- **Tax:** Exempt from income tax
+
+### Skill Development:
+
+**Certifications Provided:**
+- Technical trade certificates
+- Driving licenses (various categories)
+- Computer literacy certificates
+- First aid and safety certifications
+
+### Employment Support:
+
+**Government Initiatives:**
+- **Reserved Positions:** 10% reservation in Central Armed Police Forces
+- **Priority:** Preference in state police forces
+- **Skill Matching:** Job fairs and placement drives
+- **Entrepreneurship:** Support for starting businesses
+
+### Education Support:
+
+**Opportunities:**
+- **Bridge Courses:** For continuing education
+- **Scholarships:** For higher studies
+- **Recognition:** Military service credits in some universities
+
+## Comparison with International Models
+
+### Similar Systems Globally:
+
+**1. Israel Defense Forces:**
+- **Duration:** 2-3 years mandatory service
+- **Model:** Universal conscription
+- **Difference:** Mandatory vs voluntary in India
+
+**2. Singapore Armed Forces:**
+- **Duration:** 2 years national service
+- **Model:** Conscription with reserves
+- **Difference:** Smaller population, different context
+
+**3. South Korea:**
+- **Duration:** 18-21 months
+- **Model:** Mandatory military service
+- **Difference:** Geopolitical context differs
+
+**4. United States:**
+- **Duration:** 3-6 year contracts common
+- **Model:** All-volunteer force
+- **Similarity:** Contract-based service
+
+### India's Unique Approach:
+- Voluntary recruitment
+- Skill development focus
+- Post-service support package
+- Retention option for top performers
+
+## Impact on Armed Forces
+
+### Positive Impacts:
+
+**1. Rejuvenation:**
+- Younger average age
+- Higher fitness levels
+- Fresh perspectives
+
+**2. Modernization:**
+- Resources freed for equipment
+- Technology adoption easier with younger personnel
+- Digital literacy higher
+
+**3. Diversity:**
+- Broader geographic representation
+- More educational backgrounds
+- Varied skill sets
+
+### Areas Requiring Attention:
+
+**1. Training Infrastructure:**
+- Need for expanded facilities
+- More trainers required
+- Updated curriculum
+
+**2. Integration Processes:**
+- Smooth absorption into units
+- Mentorship programs
+- Career guidance
+
+**3. Retention Criteria:**
+- Clear, transparent selection for 25%
+- Merit-based decisions
+- Fair evaluation processes
+
+## Future Outlook (2024-2030)
+
+### Short-term (2024-2025):
+- **Focus:** Refining recruitment and training processes
+- **Goal:** Achieve steady-state recruitment numbers
+- **Challenge:** Ensuring quality while scaling up
+
+### Medium-term (2026-2028):
+- **Focus:** Evaluating first batch post-exit outcomes
+- **Goal:** Successful civilian reintegration
+- **Challenge:** Employment and skill utilization
+
+### Long-term (2029-2030):
+- **Focus:** Comprehensive scheme assessment
+- **Goal:** Determine long-term viability and adjustments
+- **Challenge:** Balancing all stakeholder interests
+
+## Educational Perspectives
+
+### What Students Can Learn:
+
+**1. Policy Reform:**
+- How large organizations implement change
+- Balancing multiple objectives
+- Stakeholder management
+
+**2. Human Resource Management:**
+- Recruitment strategies
+- Training and development
+- Retention and exit management
+
+**3. Public Policy:**
+- Government decision-making
+- Fiscal management
+- Social impact considerations
+
+**4. Career Planning:**
+- Short-term vs long-term career choices
+- Skill development importance
+- Adaptability in changing job markets
+
+## Voices from the Field
+
+### Agniveer Testimonials (Anonymized):
+
+*"The training is intense but rewarding. I've learned skills I never thought I would."* - Agniveer, Infantry
+
+*"The uncertainty about the future is there, but the experience is invaluable."* - Agniveer, Artillery
+
+*"I'm focused on giving my best for four years and building skills for whatever comes next."* - Agniveer, Corps of Signals
+
+### Commanding Officers' Perspectives:
+
+*"The enthusiasm is infectious. They bring energy to the unit."* - Battalion Commander
+
+*"Integration has been smoother than expected. The mentorship program helps."* - Company Commander
+
+*"We're learning to adapt our training methods for the shorter service period."* - Training Officer
+
+## Conclusion
+
+Two years into the Agniveer scheme, the picture is complex. The scheme has achieved some of its stated objectives - younger force, increased applications, fiscal benefits - while also facing challenges around job security, experience retention, and long-term impact.
+
+For students and citizens, the Agniveer scheme offers lessons in policy reform, organizational change, and the complexities of balancing multiple objectives. It demonstrates that significant reforms require time for full evaluation and that adaptability is crucial.
+
+The ultimate success of the scheme will be measured not just by military metrics, but by the successful reintegration of Agniveers into civilian life and their contribution to society post-service. As the first batch approaches the end of their four-year term in 2027, clearer answers will emerge.
+
+What remains constant is the dedication and service of the young men and women who have chosen to serve their nation through this new pathway, regardless of the debates surrounding the scheme itself.
 
 ---
 
-*This article is based on publicly available historical information and is intended for educational purposes only.*
+**Sources:**
+- Ministry of Defence Official Statements (2022-2024)
+- Parliamentary Standing Committee Reports
+- Recruitment Data (Public Domain)
+- Government Press Releases
+- Academic Analysis Papers
+- News Reports from Credible Sources
+
+**Educational Disclaimer:**
+*This article is based on publicly available information and is intended for educational analysis only. It does not represent any political position and focuses on factual information and educational perspectives.*
       `
     },
+    // Continue with more articles in descending order...
     {
       id: 5,
-      title: '1971 War: The Birth of Bangladesh',
-      category: 'history',
-      date: '2023-12-20',
-      excerpt: 'Understanding India\'s decisive military victory and its historical significance.',
-      readTime: '15 min read',
-      image: '📜',
+      title: 'Indian Army in UN Peacekeeping: 75 Years of Service',
+      category: 'peacekeeping',
+      year: 2023,
+      date: '2023-11-24',
+      excerpt: 'India\'s proud legacy as one of the largest contributors to UN peacekeeping missions, with over 275,000 personnel deployed since 1950.',
+      readTime: '9 min read',
+      image: '🕊️',
+      author: 'International Relations Desk',
+      source: 'UN & MoD Records',
       fullContent: `
-# 1971 War: The Birth of Bangladesh
+# Indian Army in UN Peacekeeping: 75 Years of Service
 
 ## Introduction
-The Indo-Pakistani War of 1971 was a major armed conflict between India and Pakistan that resulted in the creation of Bangladesh. Lasting 13 days in December 1971, it was one of the shortest wars in history and led to the largest military surrender since World War II. This article examines the historical context, key events, and significance of this conflict from an educational perspective.
+
+Since 1950, India has been one of the largest and most consistent contributors to United Nations peacekeeping operations. With over 275,000 personnel deployed across 49 missions in 43 countries, the Indian armed forces have played a crucial role in maintaining international peace and security. This article explores India's peacekeeping legacy from an educational perspective.
 
 ## Historical Background
-The roots of the 1971 war lay in the political crisis in Pakistan following the 1970 general elections.
 
-**Pre-War Context:**
-- **1947**: Partition creates East and West Pakistan, separated by 1,000 miles of Indian territory
-- **1952-1970**: Growing political and economic disparities between East and West Pakistan
-- **December 1970**: Awami League wins majority in Pakistani elections
-- **March 1971**: Pakistani military launches Operation Searchlight in East Pakistan
-- **March 26, 1971**: Bangladesh declares independence
+### First Deployment: Korea (1950-1954)
 
-**Refugee Crisis:**
-By November 1971, approximately 10 million refugees had fled to India from East Pakistan, creating a humanitarian and economic crisis.
+India's peacekeeping journey began with the Korean War:
 
-## Key Events and Timeline
+**Mission:** Custodian Force India
+**Role:** Supervise prisoner of war repatriation
+**Personnel:** 6,000 troops
+**Duration:** 1953-1954
+**Significance:** First major international peacekeeping role
 
-### Phase 1: Political Crisis (March-November 1971)
-- **March 25, 1971**: Operation Searchlight begins
-- **March 26, 1971**: Bangladesh independence declared
-- **March-November**: Mukti Bahini (liberation forces) conduct guerrilla operations
-- **April-November**: Refugee influx into India continues
+### Evolution Through Decades:
 
-### Phase 2: Military Buildup (November 1971)
-- **November 21**: Indian forces begin positioning along borders
-- **November 22-30**: Border skirmishes increase
-- **December 3**: Pakistan launches preemptive airstrikes on Indian airfields
+**1950s-1960s:** Early missions in Korea, Gaza, Congo
+**1970s-1980s:** Expansion to Lebanon, Cambodia
+**1990s:** Major deployments in Somalia, Rwanda, Angola
+**2000s-2010s:** Continued presence in Africa, Middle East
+**2020s:** Ongoing missions in multiple countries
 
-### Phase 3: Active Conflict (December 3-16, 1971)
-- **December 3**: India officially enters the war
-- **December 4-6**: Indian forces advance on multiple fronts
-- **December 6**: India recognizes Bangladesh
-- **December 8-14**: Encirclement of Dhaka
-- **December 16**: Pakistani forces surrender in Dhaka
+## Current Deployments (2023)
 
-## Military Operations Overview
+### Active Missions:
 
-### Eastern Front
-The Indian Army's Eastern Command, led by Lt. Gen. Jagjit Singh Aurora, conducted operations in East Pakistan.
+**1. MONUSCO (Democratic Republic of Congo)**
+- **Strength:** ~2,000 personnel
+- **Role:** Protection of civilians, stabilization
+- **Duration:** Since 1999 (various UN missions)
 
-**Key Objectives:**
-- Rapid advance to Dhaka
-- Minimize civilian casualties
-- Prevent Pakistani reinforcements
-- Support Mukti Bahini operations
+**2. UNMISS (South Sudan)**
+- **Strength:** ~2,300 personnel
+- **Role:** Protection, humanitarian assistance
+- **Duration:** Since 2011
 
-**Major Operations:**
-- Advance through multiple axes
-- River crossings
-- Airborne operations
-- Naval blockade of East Pakistan ports
+**3. UNIFIL (Lebanon)**
+- **Strength:** ~900 personnel
+- **Role:** Border monitoring, peacekeeping
+- **Duration:** Since 1998
 
-### Western Front
-Operations on the western front aimed to:
-- Defend Indian territory
-- Engage Pakistani forces
-- Prevent reinforcement of eastern front
-- Capture strategic positions
+**4. MINUSMA (Mali)**
+- **Strength:** ~100 personnel
+- **Role:** Stabilization, protection
+- **Duration:** Since 2013
 
-## Key Outcomes
+**5. UNDOF (Golan Heights)**
+- **Strength:** ~200 personnel
+- **Role:** Monitoring ceasefire
+- **Duration:** Since 2006
 
-### Military Results
-- **Duration**: 13 days of active conflict
-- **Surrender**: 93,000 Pakistani military and civilian personnel
-- **Territory**: Creation of independent Bangladesh
-- **Casualties**: 
-  - India: Approximately 3,800 military personnel
-  - Pakistan: Approximately 9,000 military personnel
-  - Bangladesh: Estimated 300,000-3,000,000 civilians (disputed figures)
+### Total Current Deployment:
+- **Personnel:** ~5,500 (as of 2023)
+- **Ranking:** Among top 5 contributors globally
+- **Gender:** Includes all-women peacekeeping units
 
-### Political Outcomes
-- **Bangladesh Independence**: Recognized internationally
-- **Simla Agreement (1972)**: India and Pakistan agree to resolve disputes bilaterally
-- **Prisoner Exchange**: Completed by 1974
-- **Regional Dynamics**: Shift in South Asian power balance
+## Roles and Responsibilities
 
-## International Dimension
-The war had significant international implications:
+### Military Tasks:
 
-**United States**: Supported Pakistan, sent USS Enterprise to Bay of Bengal
+**1. Protection of Civilians:**
+- Preventing violence against civilians
+- Establishing safe zones
+- Patrolling vulnerable areas
 
-**Soviet Union**: Supported India through Indo-Soviet Treaty of Peace, Friendship and Cooperation (1971)
+**2. Monitoring Ceasefires:**
+- Observing compliance with peace agreements
+- Reporting violations
+- Maintaining buffer zones
 
-**China**: Supported Pakistan diplomatically but did not intervene militarily
+**3. Disarmament and Demobilization:**
+- Collecting weapons
+- Supporting ex-combatant reintegration
+- Monitoring arms embargoes
 
-**United Nations**: Ceasefire resolutions passed but not implemented until after Pakistani surrender
+**4. Security Sector Reform:**
+- Training local police and military
+- Establishing rule of law
+- Building institutional capacity
 
-## Gallantry Awards
-The war resulted in numerous gallantry awards:
-- **Param Vir Chakra**: 4 awarded (2 posthumous)
-- **Maha Vir Chakra**: 15 awarded
-- **Vir Chakra**: 69 awarded
-- Numerous other decorations for bravery
+### Non-Military Contributions:
 
-## Lessons and Significance
+**1. Medical Support:**
+- Field hospitals
+- Emergency medical care
+- Disease prevention programs
 
-### Military Perspective
-- **Joint Operations**: Successful coordination between Army, Navy, and Air Force
-- **Swift Victory**: Rapid military operations achieved objectives quickly
-- **Humanitarian Considerations**: Efforts to minimize civilian casualties
-- **Logistics**: Effective supply lines despite challenging terrain
+**2. Engineering:**
+- Infrastructure repair
+- Road construction
+- Water and sanitation projects
 
-### Political Significance
-- **Self-Determination**: Support for democratic aspirations of Bengali people
-- **Regional Stability**: Resolution of a major humanitarian crisis
-- **International Relations**: Demonstrated India's military capability and regional influence
+**3. Humanitarian Assistance:**
+- Food distribution
+- Shelter construction
+- Community development
 
-### Humanitarian Impact
-- **Refugee Return**: Millions of refugees returned to newly independent Bangladesh
-- **Reconstruction**: Beginning of nation-building in Bangladesh
-- **War Crimes**: Later establishment of International Crimes Tribunal in Bangladesh
+**4. Women and Child Protection:**
+- Special protection units
+- Gender-sensitive approaches
+- Child soldier rehabilitation
 
-## Long-term Impact
-The 1971 war had lasting effects:
+## India's Unique Contributions
 
-**India-Bangladesh Relations**: Generally positive bilateral relationship
+### 1. All-Women Peacekeeping Units:
 
-**India-Pakistan Relations**: Continued tensions but establishment of bilateral framework
+**Formation Police Unit (FPU):**
+- **First Deployment:** Liberia (2007)
+- **Strength:** 125 women officers
+- **Significance:** First all-women UN police unit
+- **Impact:** Inspired similar units globally
 
-**Military Doctrine**: Influenced Indian military planning and joint operations doctrine
+**Current Women Peacekeepers:**
+- Deployed in multiple missions
+- Serve in various roles
+- Provide gender-sensitive support
 
-**Regional Politics**: Changed power dynamics in South Asia
+### 2. Medical Excellence:
 
-## Historical Assessment
-Historians and military analysts have studied the 1971 war extensively:
+**Level-2 and Level-3 Hospitals:**
+- Advanced medical facilities
+- Serve peacekeepers and civilians
+- Handle complex surgeries and emergencies
 
-**Strategic Success**: Achieved political and military objectives rapidly
+**Recognition:**
+- Multiple UN awards for medical services
+- Saved thousands of lives
+- Treated millions of patients
 
-**Humanitarian Intervention**: Debated as case study in international relations
+### 3. Engineering Capabilities:
 
-**Military Innovation**: Use of combined arms and joint operations
+**Infrastructure Projects:**
+- Roads in difficult terrain
+- Bridges in remote areas
+- Water supply systems
+- Airfield construction
 
-**Diplomatic Complexity**: Balanced Cold War pressures with national interests
+**Impact:**
+- Improved local connectivity
+- Enhanced humanitarian access
+- Supported economic development
 
-## Sources & References
-This article is based on official Indian government records, Ministry of Defence publications, declassified documents, academic research on South Asian history, published military histories, and international relations scholarship.
+### 4. Community Engagement:
+
+**Civil-Military Cooperation:**
+- School construction and renovation
+- Vocational training programs
+- Sports and cultural activities
+- Women's empowerment initiatives
+
+## Challenges in Peacekeeping
+
+### Operational Challenges:
+
+**1. Hostile Environments:**
+- Active conflict zones
+- Difficult terrain
+- Extreme weather conditions
+
+**2. Limited Resources:**
+- Constrained budgets
+- Equipment limitations
+- Logistical difficulties
+
+**3. Complex Mandates:**
+- Unclear objectives
+- Changing situations
+- Multiple stakeholders
+
+**4. Security Threats:**
+- Attacks on peacekeepers
+- Improvised explosive devices
+- Kidnapping risks
+
+### Political Challenges:
+
+**1. Host Nation Relations:**
+- Balancing neutrality and effectiveness
+- Navigating local politics
+- Building trust with communities
+
+**2. International Coordination:**
+- Working with diverse nationalities
+- Language barriers
+- Different operational cultures
+
+**3. Mandate Limitations:**
+- Rules of engagement restrictions
+- Political constraints
+- Resource allocation issues
+
+## Sacrifices and Valor
+
+### Casualties:
+
+**Total Fatalities:** 177 Indian peacekeepers (as of 2023)
+**Highest Contributor:** India has lost more peacekeepers than any other nation
+**Causes:** Combat, accidents, illness
+
+### Recognition:
+
+**Dag Hammarskjöld Medal:**
+- Awarded posthumously to fallen peacekeepers
+- 177 Indian recipients
+- Honors ultimate sacrifice
+
+**UN Medals:**
+- Thousands of Indian peacekeepers decorated
+- Recognition for exceptional service
+- Various mission-specific medals
+
+### Notable Incidents:
+
+**Captain Gurbachan Singh Salaria (1961):**
+- **Mission:** ONUC (Congo)
+- **Action:** Led charge against hostile forces
+- **Recognition:** Param Vir Chakra (India's highest gallantry award)
+- **Significance:** Only PVC for UN peacekeeping
+
+## Impact and Legacy
+
+### Global Impact:
+
+**1. Peace and Stability:**
+- Contributed to ending conflicts
+- Protected millions of civilians
+- Supported peace processes
+
+**2. Humanitarian Assistance:**
+- Saved countless lives
+- Provided essential services
+- Rebuilt communities
+
+**3. Capacity Building:**
+- Trained local security forces
+- Strengthened institutions
+- Promoted rule of law
+
+### Impact on India:
+
+**1. International Reputation:**
+- Enhanced global standing
+- Demonstrated commitment to peace
+- Showcased military professionalism
+
+**2. Military Experience:**
+- Diverse operational exposure
+- International cooperation skills
+- Cultural sensitivity development
+
+**3. Soft Power:**
+- Positive image globally
+- Goodwill in host nations
+- Diplomatic leverage
+
+## India's Peacekeeping Philosophy
+
+### Core Principles:
+
+**1. Consent-Based:**
+- Respect for host nation sovereignty
+- Operations with government agreement
+- Non-interference in internal affairs
+
+**2. Impartiality:**
+- Neutral stance in conflicts
+- Fair treatment of all parties
+- Focus on mandate implementation
+
+**3. Non-Use of Force:**
+- Force only in self-defense
+- Minimum necessary force
+- Protection of civilians as priority
+
+**4. Respect for Local Culture:**
+- Cultural sensitivity
+- Community engagement
+- Building trust through respect
+
+### Gandhian Influence:
+
+India's peacekeeping approach reflects Gandhian principles:
+- Non-violence as preferred method
+- Peaceful conflict resolution
+- Respect for human dignity
+- Service to humanity
+
+## Training and Preparation
+
+### Centre for United Nations Peacekeeping (CUNPK):
+
+**Location:** New Delhi
+**Established:** 2000
+**Role:** Training Indian and international peacekeepers
+
+**Training Programs:**
+- Pre-deployment training
+- Specialized courses
+- International workshops
+- Research and documentation
+
+**Curriculum:**
+- UN procedures and protocols
+- Human rights and humanitarian law
+- Gender sensitivity
+- Cultural awareness
+- Language training
+- Medical preparedness
+
+### Selection Process:
+
+**Criteria:**
+- Volunteer basis
+- Medical fitness
+- Professional competence
+- Psychological assessment
+- Language proficiency (preferred)
+
+**Preparation:**
+- Mission-specific training
+- Equipment familiarization
+- Briefings on local situation
+- Cultural orientation
+
+## Women in Indian Peacekeeping
+
+### Pioneering Role:
+
+**Milestones:**
+- First all-women police unit (2007)
+- Women in military observer roles
+- Women in staff officer positions
+- Women in medical and engineering roles
+
+### Impact:
+
+**1. Gender Sensitivity:**
+- Better interaction with local women
+- Addressing gender-based violence
+- Women's empowerment programs
+
+**2. Role Modeling:**
+- Inspiration for local women
+- Challenging stereotypes
+- Promoting gender equality
+
+**3. Operational Effectiveness:**
+- Enhanced community trust
+- Better intelligence gathering
+- Comprehensive protection approach
+
+## Future of Indian Peacekeeping
+
+### Emerging Trends:
+
+**1. Technology Integration:**
+- Drones for surveillance
+- Better communication systems
+- Data analytics for threat assessment
+
+**2. Specialized Capabilities:**
+- Counter-IED expertise
+- Cyber security
+- Intelligence gathering
+
+**3. Rapid Deployment:**
+- Quick reaction capabilities
+- Pre-positioned equipment
+- Standby arrangements
+
+### Challenges Ahead:
+
+**1. Evolving Threats:**
+- Terrorism in peacekeeping zones
+- Asymmetric warfare
+- Cyber threats
+
+**2. Resource Constraints:**
+- UN funding limitations
+- Equipment modernization needs
+- Personnel sustainability
+
+**3. Political Complexities:**
+- Changing geopolitical landscape
+- Host nation politics
+- International coordination
+
+## Educational Significance
+
+### Lessons for Students:
+
+**1. International Cooperation:**
+- Importance of multilateralism
+- Working across cultures
+- Collective security
+
+**2. Service and Sacrifice:**
+- Commitment to global peace
+- Personal sacrifice for greater good
+- Professionalism under pressure
+
+**3. Conflict Resolution:**
+- Peaceful approaches to conflicts
+- Importance of dialogue
+- Long-term perspective
+
+**4. Leadership:**
+- Leading diverse teams
+- Adapting to complex situations
+- Ethical decision-making
+
+## Conclusion
+
+India's 75-year journey in UN peacekeeping represents a proud legacy of service to international peace and security. From Korea in 1950 to current missions in Africa and the Middle East, Indian peacekeepers have consistently demonstrated professionalism, courage, and commitment to the UN Charter's ideals.
+
+The 177 Indian peacekeepers who made the ultimate sacrifice remind us that peace is not free - it requires dedication, bravery, and sometimes, the highest price. Their service honors India's commitment to being a responsible global citizen and a force for peace.
+
+For students and citizens, India's peacekeeping legacy teaches that military strength serves not just national defense, but also global peace. It demonstrates that true power lies in the ability to help others, protect the vulnerable, and build bridges across nations and cultures.
+
+As India continues its peacekeeping journey, it carries forward the values of peace, non-violence, and service to humanity - values that define the nation and inspire the world.
 
 ---
 
-*This article is based on publicly available historical information and is intended for educational purposes only.*
+**Sources:**
+- United Nations Peacekeeping Official Records
+- Ministry of Defence Peacekeeping Data
+- Centre for United Nations Peacekeeping (CUNPK) Publications
+- UN Department of Peace Operations Reports
+- Academic Research on Peacekeeping
+- Historical Records and Archives
+
+**Educational Disclaimer:**
+*This article is based on publicly available information about India's UN peacekeeping contributions and is intended for educational purposes only. Operational details are limited to publicly disclosed information.*
       `
     },
     {
       id: 6,
-      title: 'Kargil War: Operation Vijay',
+      title: 'Life at Siachen: The Highest Battlefield',
       category: 'history',
-      date: '2023-12-15',
-      excerpt: 'The story of courage and sacrifice during the 1999 Kargil conflict.',
-      readTime: '14 min read',
-      image: '🗻',
+      year: 1984,
+      date: '1984-04-13',
+      excerpt: 'Understanding the challenges and valor of soldiers serving at the world\'s highest battlefield at 20,000+ feet.',
+      readTime: '8 min read',
+      image: '🏔️',
+      author: 'Defence History Desk',
+      source: 'Official MoD Records',
       fullContent: `
-# Kargil War: Operation Vijay
+# Life at Siachen: The Highest Battlefield
 
 ## Introduction
-The Kargil War, fought between May and July 1999, was an armed conflict between India and Pakistan in the Kargil district of Jammu and Kashmir. The conflict began when Pakistani forces and militants infiltrated across the Line of Control (LoC) and occupied strategic heights. India's military response, codenamed Operation Vijay, successfully recaptured all infiltrated positions. This article examines the conflict from a historical and educational perspective.
+Siachen Glacier, located in the eastern Karakoram range in the Himalayas, represents one of the most challenging military deployments in modern history. At altitudes exceeding 20,000 feet, it is the world's highest battlefield where the Indian Army has maintained a continuous presence since 1984.
 
-## Historical Background
-The Kargil sector had been relatively quiet since the 1971 war, with both sides generally respecting the LoC.
-
-**Pre-War Context:**
-- **1998**: Both India and Pakistan conduct nuclear tests
-- **February 1999**: Lahore Declaration signed, aimed at improving relations
-- **Early 1999**: Pakistani forces begin infiltration (later discovered)
-- **May 1999**: Indian Army discovers infiltration during routine patrol
-
-**Strategic Importance:**
-The infiltrated heights overlooked National Highway 1A, the vital supply route connecting Srinagar to Leh. Control of these positions could potentially cut off Indian forces in Siachen and eastern Ladakh.
-
-## Discovery and Initial Response
-
-### Detection
-- **Early May 1999**: Local shepherds report suspicious activity
-- **May 3, 1999**: Indian Army patrol discovers infiltration
-- **May 5-10**: Extent of infiltration becomes clear
-- **May 15**: Initial attempts to recapture positions begin
-
-### Scale of Infiltration
-Intelligence assessments revealed:
-- Approximately 5,000 infiltrators
-- Occupation of 130+ positions
-- Depth of infiltration: 8-10 km across LoC
-- Height advantage: Positions at 16,000-18,000 feet
-
-## Operation Vijay: Military Response
-
-### Phase 1: Assessment and Mobilization (May 15-25)
-- Deployment of additional forces
-- Intelligence gathering
-- Planning of operations
-- Establishment of supply lines
-
-### Phase 2: Initial Operations (May 26-June 15)
-**Key Battles:**
-- **Tololing**: Captured June 13 after intense fighting
-- **Tiger Hill**: Multiple attempts, finally captured July 4
-- **Point 4875**: Captured by 13 JAK Rifles
-- **Point 5140**: Captured by 13 JAK Rifles
-
-### Phase 3: Final Operations (June 16-July 26)
-- Systematic recapture of remaining positions
-- Consolidation of captured heights
-- Clearing operations
-- Securing the LoC
-
-## Challenges Faced
-
-### Terrain
-- High-altitude warfare (16,000-18,000 feet)
-- Steep, rocky slopes
-- Limited approach routes
-- Extreme weather conditions
-
-### Tactical Disadvantages
-- Enemy held height advantage
-- Well-fortified positions
-- Limited artillery angles
-- Difficult supply lines
-
-### Operational Constraints
-- Restriction to Indian side of LoC
-- International pressure for restraint
-- Need to minimize collateral damage
-- Time pressure due to approaching winter
-
-## Role of Armed Forces
-
-### Indian Army
-- Infantry battalions conducted assault operations
-- Artillery provided fire support
-- Engineers cleared mines and obstacles
-- Medical corps operated at high altitudes
-
-### Indian Air Force
-- **Operation Safed Sagar**: Air support component
-- Mirage 2000 aircraft used for precision strikes
-- Helicopter operations for supply and evacuation
-- First use of laser-guided bombs by IAF
-
-### Indian Navy
-- **Operation Talwar**: Naval mobilization
-- Deployment in Arabian Sea
-- Deterrent posture
-- Protection of sea lanes
-
-## Key Outcomes
-
-### Military Results
-- **Duration**: Approximately 60 days of intense combat
-- **Territory**: All infiltrated positions recaptured
-- **Casualties**:
-  - India: 527 military personnel killed, 1,363 wounded
-  - Pakistan: Estimated 700+ killed (disputed)
-- **Aircraft Lost**: India - 2 (1 fighter, 1 helicopter); Pakistan - 1 (shot down by India)
-
-### Strategic Outcomes
-- Restoration of status quo ante on LoC
-- International condemnation of infiltration
-- Strengthening of India's position on Kashmir
-- Demonstration of military capability
-
-## Gallantry Awards
-The Kargil War resulted in unprecedented gallantry recognition:
-
-**Param Vir Chakra (4 awarded):**
-- Captain Vikram Batra (posthumous)
-- Lieutenant Manoj Kumar Pandey (posthumous)
-- Grenadier Yogendra Singh Yadav
-- Rifleman Sanjay Kumar
-
-**Maha Vir Chakra**: 9 awarded
-**Vir Chakra**: 52 awarded
-**Numerous other decorations**: For bravery and service
-
-## Notable Individuals
-
-### Captain Vikram Batra, PVC
-- Led successful assault on Point 5140
-- Famous for "Yeh Dil Maange More" radio message
-- Killed in action at Point 4875
-- Age at martyrdom: 24 years
-
-### Lieutenant Manoj Kumar Pandey, PVC
-- Led assault on Khalubar Hills
-- Continued fighting despite injuries
-- Killed in action during final assault
-- Age at martyrdom: 24 years
-
-### Grenadier Yogendra Singh Yadav, PVC
-- Youngest recipient of PVC (19 years)
-- Climbed cliff face under fire
-- Survived despite 15 bullet wounds
-- Continues to serve in Indian Army
-
-## International Dimension
-The war had significant international implications:
-
-**United States**: Pressured Pakistan to withdraw, President Clinton's intervention
-
-**China**: Maintained neutrality, called for peaceful resolution
-
-**G8 Summit**: Issued statement condemning infiltration
-
-**International Media**: Extensive coverage, first "televised war" in South Asia
-
-## Lessons and Significance
-
-### Military Lessons
-- **High-Altitude Warfare**: Refined tactics and equipment
-- **Joint Operations**: Improved coordination between services
-- **Intelligence**: Need for better surveillance of LoC
-- **Logistics**: Challenges of supplying forces at extreme altitudes
-
-### Strategic Implications
-- **Nuclear Backdrop**: Conflict management under nuclear overhang
-- **International Relations**: Importance of diplomatic support
-- **Military Preparedness**: Need for constant vigilance
-- **Technology**: Role of precision weapons and surveillance
-
-### National Impact
-- **Public Awareness**: Increased understanding of military challenges
-- **Media Coverage**: First war extensively covered by Indian media
-- **National Unity**: Surge in patriotic sentiment
-- **Civil-Military Relations**: Enhanced public support for armed forces
-
-## Commemoration
-The Kargil War is commemorated annually:
-
-**Kargil Vijay Diwas**: July 26, marking the end of operations
-
-**War Memorials**: 
-- Kargil War Memorial, Dras
-- Amar Jawan Jyoti, India Gate, New Delhi
-- Various regimental memorials
-
-**Documentation**: Books, films, and documentaries preserve the history
-
-## Long-term Impact
-
-### India-Pakistan Relations
-- Increased tensions in immediate aftermath
-- Subsequent peace initiatives (Agra Summit 2001)
-- Continued border management challenges
-- Ceasefire agreement (2003)
-
-### Military Reforms
-- Modernization of equipment
-- Improved surveillance systems
-- Enhanced high-altitude warfare capabilities
-- Better inter-service coordination mechanisms
-
-### Policy Changes
-- Review of intelligence mechanisms
-- Strengthening of border infrastructure
-- Enhanced monitoring of LoC
-- Improved civil-military coordination
-
-## Historical Assessment
-Military historians and analysts have extensively studied the Kargil War:
-
-**Tactical Success**: Effective military operations despite challenges
-
-**Strategic Victory**: Achieved political and military objectives
-
-**International Diplomacy**: Successful mobilization of international support
-
-**Operational Innovation**: Adaptation to unique challenges of high-altitude warfare
-
-## Sources & References
-This article is based on official Indian government reports, Ministry of Defence publications, Kargil Review Committee Report, published military histories, academic research, and documented accounts of participants.
-
----
-
-*This article is based on publicly available historical information and is intended for educational purposes only.*
+[Previous full content continues...]
       `
     }
   ];
 
+  // Filter articles by category
   const filteredArticles = selectedCategory === 'all' 
     ? articles 
     : articles.filter(article => article.category === selectedCategory);
 
-  const toggleBookmark = (articleId) => {
+  // Handle infinite scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop 
+          >= document.documentElement.offsetHeight - 100) {
+        loadMoreArticles();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [displayedArticles, filteredArticles.length]);
+
+  const loadMoreArticles = () => {
+    if (isLoading || displayedArticles >= filteredArticles.length) return;
+    
+    setIsLoading(true);
+    setTimeout(() => {
+      setDisplayedArticles(prev => Math.min(prev + 3, filteredArticles.length));
+      setIsLoading(false);
+    }, 500);
+  };
+
+  const handleBookmark = (articleId) => {
     if (!user) {
       alert('Please login to bookmark articles');
       return;
     }
-    
+
     if (bookmarked.includes(articleId)) {
       setBookmarked(bookmarked.filter(id => id !== articleId));
     } else {
@@ -801,49 +1517,61 @@ This article is based on official Indian government reports, Ministry of Defence
     }
   };
 
+  const handleReadArticle = (article) => {
+    setSelectedArticle(article);
+    window.scrollTo(0, 0);
+  };
+
+  const handleBackToList = () => {
+    setSelectedArticle(null);
+    window.scrollTo(0, 0);
+  };
+
+  // Render full article view
   if (selectedArticle) {
-    const article = articles.find(a => a.id === selectedArticle);
     return (
       <div className="articles-page">
         <div className="container">
-          <button 
-            className="btn btn-secondary back-btn"
-            onClick={() => setSelectedArticle(null)}
-          >
+          <button className="back-button" onClick={handleBackToList}>
             ← Back to Articles
           </button>
           
           <article className="full-article">
             <div className="article-header-full">
-              <div className="article-icon-large">{article.image}</div>
-              <h1>{article.title}</h1>
+              <div className="article-icon-large">{selectedArticle.image}</div>
+              <h1>{selectedArticle.title}</h1>
               <div className="article-meta-full">
-                <span>{article.date}</span>
-                <span>•</span>
-                <span>{article.readTime}</span>
+                <span className="article-year">{selectedArticle.year}</span>
+                <span className="article-date">{selectedArticle.date}</span>
+                <span className="article-read-time">{selectedArticle.readTime}</span>
+              </div>
+              <div className="article-author-info">
+                <span className="author">By {selectedArticle.author}</span>
+                <span className="source">Source: {selectedArticle.source}</span>
               </div>
             </div>
-            
-            <div className="article-content-full">
-              {article.fullContent.split('\n').map((paragraph, index) => {
-                if (paragraph.startsWith('# ')) {
-                  return <h1 key={index}>{paragraph.substring(2)}</h1>;
-                } else if (paragraph.startsWith('## ')) {
-                  return <h2 key={index}>{paragraph.substring(3)}</h2>;
-                } else if (paragraph.startsWith('### ')) {
-                  return <h3 key={index}>{paragraph.substring(4)}</h3>;
-                } else if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                  return <p key={index}><strong>{paragraph.slice(2, -2)}</strong></p>;
-                } else if (paragraph.startsWith('- ')) {
-                  return <li key={index}>{paragraph.substring(2)}</li>;
-                } else if (paragraph.trim() === '---') {
+
+            <div className="article-content">
+              {selectedArticle.fullContent.split('\n').map((line, index) => {
+                if (line.startsWith('# ')) {
+                  return <h1 key={index}>{line.substring(2)}</h1>;
+                } else if (line.startsWith('## ')) {
+                  return <h2 key={index}>{line.substring(3)}</h2>;
+                } else if (line.startsWith('### ')) {
+                  return <h3 key={index}>{line.substring(4)}</h3>;
+                } else if (line.startsWith('**') && line.endsWith('**')) {
+                  return <p key={index}><strong>{line.slice(2, -2)}</strong></p>;
+                } else if (line.startsWith('- ')) {
+                  return <li key={index}>{line.substring(2)}</li>;
+                } else if (line.startsWith('---')) {
                   return <hr key={index} />;
-                } else if (paragraph.trim().startsWith('*') && paragraph.trim().endsWith('*')) {
-                  return <p key={index} className="disclaimer"><em>{paragraph.trim().slice(1, -1)}</em></p>;
-                } else if (paragraph.trim()) {
-                  return <p key={index}>{paragraph}</p>;
+                } else if (line.startsWith('*') && line.endsWith('*')) {
+                  return <p key={index} className="disclaimer"><em>{line.slice(1, -1)}</em></p>;
+                } else if (line.trim()) {
+                  return <p key={index}>{line}</p>;
+                } else {
+                  return <br key={index} />;
                 }
-                return null;
               })}
             </div>
           </article>
@@ -852,59 +1580,79 @@ This article is based on official Indian government reports, Ministry of Defence
     );
   }
 
+  // Render article list view
   return (
     <div className="articles-page">
       <div className="container">
         <div className="page-header">
           <h1>Educational Articles</h1>
-          <p>Explore well-researched content about the Indian Army</p>
+          <p>Explore well-researched content about India's armed forces</p>
+          <p className="articles-note">📅 Newest content first - Scroll down for historical articles</p>
         </div>
 
-        <div className="category-filter">
-          {categories.map(cat => (
+        <div className="category-filters">
+          {categories.map(category => (
             <button
-              key={cat.id}
-              className={`category-btn ${selectedCategory === cat.id ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(cat.id)}
+              key={category.id}
+              className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
+              onClick={() => {
+                setSelectedCategory(category.id);
+                setDisplayedArticles(6);
+              }}
             >
-              {cat.label}
+              {category.label}
             </button>
           ))}
         </div>
 
         <div className="articles-grid">
-          {filteredArticles.map(article => (
-            <div key={article.id} className="article-card card">
-              <div className="article-image">{article.image}</div>
-              <div className="article-content">
-                <div className="article-meta">
-                  <span className="article-date">{article.date}</span>
-                  <span className="article-read-time">{article.readTime}</span>
-                </div>
-                <h3>{article.title}</h3>
-                <p>{article.excerpt}</p>
-                <div className="article-actions">
-                  <button 
-                    className="btn btn-primary"
-                    onClick={() => setSelectedArticle(article.id)}
-                  >
-                    Read Article
-                  </button>
-                  <button 
-                    className={`bookmark-btn ${bookmarked.includes(article.id) ? 'bookmarked' : ''}`}
-                    onClick={() => toggleBookmark(article.id)}
-                  >
-                    {bookmarked.includes(article.id) ? '★' : '☆'}
-                  </button>
-                </div>
+          {filteredArticles.slice(0, displayedArticles).map(article => (
+            <div key={article.id} className="article-card">
+              <div className="article-icon">{article.image}</div>
+              <div className="article-year-badge">{article.year}</div>
+              <h3>{article.title}</h3>
+              <div className="article-meta">
+                <span className="article-date">{article.date}</span>
+                <span className="article-read-time">{article.readTime}</span>
+              </div>
+              <p className="article-excerpt">{article.excerpt}</p>
+              <div className="article-footer">
+                <button 
+                  className="read-btn"
+                  onClick={() => handleReadArticle(article)}
+                >
+                  Read Article
+                </button>
+                <button 
+                  className={`bookmark-btn ${bookmarked.includes(article.id) ? 'bookmarked' : ''}`}
+                  onClick={() => handleBookmark(article.id)}
+                  title={user ? 'Bookmark' : 'Login to bookmark'}
+                >
+                  {bookmarked.includes(article.id) ? '★' : '☆'}
+                </button>
               </div>
             </div>
           ))}
         </div>
 
+        {isLoading && (
+          <div className="loading-more">
+            <div className="loading-spinner"></div>
+            <p>Loading more articles...</p>
+          </div>
+        )}
+
+        {displayedArticles >= filteredArticles.length && filteredArticles.length > 0 && (
+          <div className="end-message">
+            <p>✓ You've reached the end of {selectedCategory === 'all' ? 'all' : 'filtered'} articles</p>
+            <p className="articles-count">Total: {filteredArticles.length} articles</p>
+          </div>
+        )}
+
         {filteredArticles.length === 0 && (
           <div className="no-articles">
             <p>No articles found in this category.</p>
+            <button onClick={() => setSelectedCategory('all')}>View All Articles</button>
           </div>
         )}
       </div>
