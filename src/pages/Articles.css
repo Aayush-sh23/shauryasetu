@@ -128,6 +128,110 @@
   font-size: 18px;
 }
 
+/* Full Article View Styles */
+.back-btn {
+  margin-bottom: 30px;
+}
+
+.full-article {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-header-full {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 3px solid var(--army-green);
+}
+
+.article-icon-large {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.article-header-full h1 {
+  font-size: 36px;
+  color: var(--navy-blue);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.article-meta-full {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-light);
+  font-size: 16px;
+}
+
+.article-content-full {
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+.article-content-full h1 {
+  font-size: 32px;
+  color: var(--navy-blue);
+  margin: 40px 0 20px;
+  padding-top: 20px;
+  border-top: 2px solid var(--off-white);
+}
+
+.article-content-full h1:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.article-content-full h2 {
+  font-size: 26px;
+  color: var(--army-green);
+  margin: 30px 0 16px;
+}
+
+.article-content-full h3 {
+  font-size: 22px;
+  color: var(--navy-blue);
+  margin: 24px 0 12px;
+}
+
+.article-content-full p {
+  margin-bottom: 16px;
+  font-size: 17px;
+}
+
+.article-content-full strong {
+  color: var(--navy-blue);
+  font-weight: 600;
+}
+
+.article-content-full li {
+  margin-bottom: 8px;
+  margin-left: 20px;
+  font-size: 17px;
+}
+
+.article-content-full hr {
+  border: none;
+  border-top: 2px solid var(--off-white);
+  margin: 30px 0;
+}
+
+.article-content-full .disclaimer {
+  background: var(--off-white);
+  padding: 16px;
+  border-left: 4px solid var(--saffron);
+  border-radius: 4px;
+  font-style: italic;
+  color: var(--text-dark);
+  margin: 30px 0;
+}
+
 @media (max-width: 768px) {
   .articles-grid {
     grid-template-columns: 1fr;
@@ -135,5 +239,30 @@
   
   .page-header h1 {
     font-size: 32px;
+  }
+  
+  .full-article {
+    padding: 24px;
+  }
+  
+  .article-header-full h1 {
+    font-size: 28px;
+  }
+  
+  .article-content-full h1 {
+    font-size: 26px;
+  }
+  
+  .article-content-full h2 {
+    font-size: 22px;
+  }
+  
+  .article-content-full h3 {
+    font-size: 19px;
+  }
+  
+  .article-content-full p,
+  .article-content-full li {
+    font-size: 16px;
   }
 }
