@@ -3,6 +3,24 @@
   min-height: calc(100vh - 150px);
 }
 
+.ai-status-banner {
+  margin-top: 16px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.ai-status-banner.demo {
+  background: linear-gradient(135deg, var(--saffron) 0%, #ff7700 100%);
+  color: white;
+}
+
+.ai-status-banner.active {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+}
+
 .assistant-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -57,6 +75,7 @@
   padding: 12px 16px;
   border-radius: 12px;
   line-height: 1.5;
+  white-space: pre-wrap;
 }
 
 .message.user .message-content {
@@ -67,6 +86,44 @@
 .message.bot .message-content {
   background-color: var(--off-white);
   color: var(--text-dark);
+}
+
+.message-content.loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: var(--army-green);
+  border-radius: 50%;
+  animation: typing 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
 }
 
 .input-area {
@@ -90,8 +147,18 @@
   border-color: var(--army-green);
 }
 
+.chat-input:disabled {
+  background-color: var(--off-white);
+  cursor: not-allowed;
+}
+
 .send-btn {
   padding: 12px 24px;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .sidebar {
@@ -152,10 +219,15 @@
   color: var(--text-dark);
 }
 
-.sample-question-btn:hover {
+.sample-question-btn:hover:not(:disabled) {
   background-color: var(--army-green);
   color: white;
   transform: translateX(4px);
+}
+
+.sample-question-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 968px) {
@@ -165,5 +237,9 @@
   
   .chat-box {
     height: 500px;
+  }
+  
+  .message-content {
+    max-width: 85%;
   }
 }
