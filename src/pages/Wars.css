@@ -1,0 +1,166 @@
+.wars-page {
+  padding: 40px 0;
+}
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--army-green);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left: 80px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border: 3px solid var(--army-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.war-icon {
+  font-size: 28px;
+}
+
+.war-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.war-card:hover {
+  border-color: var(--army-green);
+}
+
+.war-card.expanded {
+  background-color: var(--off-white);
+}
+
+.war-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.war-header h3 {
+  color: var(--navy-blue);
+  font-size: 22px;
+  flex: 1;
+}
+
+.war-year {
+  background: var(--army-green);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.war-quick-info {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.info-badge {
+  background: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.info-badge strong {
+  color: var(--army-green);
+  margin-right: 4px;
+}
+
+.war-details {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 2px solid var(--army-green);
+}
+
+.detail-section {
+  margin-bottom: 20px;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-section h4 {
+  color: var(--navy-blue);
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.detail-section p {
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.expand-btn {
+  margin-top: 16px;
+  background: none;
+  border: 2px solid var(--army-green);
+  color: var(--army-green);
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.expand-btn:hover {
+  background: var(--army-green);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 20px;
+  }
+  
+  .timeline-item {
+    padding-left: 60px;
+  }
+  
+  .timeline-marker {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .war-icon {
+    font-size: 20px;
+  }
+  
+  .war-header {
+    flex-direction: column;
+  }
+}
