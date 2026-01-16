@@ -1,53 +1,167 @@
 .career-page {
   padding: 40px 0;
+  min-height: 100vh;
 }
 
-.career-paths {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 42px;
+  color: var(--navy-blue);
+  margin-bottom: 12px;
+}
+
+.page-header p {
+  font-size: 18px;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+
+.career-note {
+  font-size: 16px;
+  color: var(--army-green);
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* Force Selector */
+.force-selector {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.force-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 30px;
+  border: 3px solid;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  font-weight: 600;
+}
+
+.force-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.force-btn.active {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.force-icon {
+  font-size: 36px;
+}
+
+.force-name {
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Career Paths Section */
+.career-paths-section {
   margin-bottom: 60px;
 }
 
+.career-paths-section h2 {
+  color: var(--navy-blue);
+  font-size: 32px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.section-description {
+  color: var(--text-light);
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.career-paths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
 .career-card {
-  cursor: pointer;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  cursor: pointer;
   border: 2px solid transparent;
+  position: relative;
 }
 
 .career-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   border-color: var(--army-green);
 }
 
 .career-card.selected {
   border-color: var(--army-green);
   background-color: var(--off-white);
+  box-shadow: 0 4px 16px rgba(74, 93, 35, 0.2);
+}
+
+.career-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
 }
 
 .career-icon {
   font-size: 48px;
-  text-align: center;
-  margin-bottom: 16px;
+}
+
+.career-category {
+  background: var(--muted-gold);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .career-card h3 {
+  font-size: 22px;
   color: var(--navy-blue);
   margin-bottom: 16px;
-  font-size: 20px;
-  text-align: center;
+  line-height: 1.4;
+  min-height: 60px;
 }
 
 .career-quick-info {
-  background: var(--off-white);
+  background: white;
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 16px;
+  border: 1px solid var(--off-white);
 }
 
 .info-item {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 14px;
   color: var(--text-dark);
+  line-height: 1.5;
 }
 
 .info-item:last-child {
@@ -56,52 +170,98 @@
 
 .info-item strong {
   color: var(--army-green);
+  font-weight: 600;
 }
 
-.career-card p {
-  color: var(--text-dark);
+.career-description {
+  color: var(--text-light);
   line-height: 1.6;
   margin-bottom: 16px;
+  font-size: 15px;
 }
 
 .career-details {
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 24px;
+  padding-top: 24px;
   border-top: 2px solid var(--army-green);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .career-details h4 {
   color: var(--navy-blue);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  font-size: 18px;
 }
 
-.career-details ol {
+.process-list {
   padding-left: 20px;
+  margin-bottom: 20px;
 }
 
-.career-details li {
-  margin-bottom: 8px;
+.process-list li {
+  margin-bottom: 10px;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+.career-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--off-white);
+  flex-wrap: wrap;
+}
+
+.next-exam {
+  font-size: 14px;
   color: var(--text-dark);
 }
 
+.next-exam strong {
+  color: var(--army-green);
+}
+
+.official-link {
+  color: var(--army-green);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.official-link:hover {
+  color: var(--navy-blue);
+  text-decoration: underline;
+}
+
+/* Ranks Section */
 .ranks-section {
   margin-bottom: 60px;
-  text-align: center;
 }
 
 .ranks-section h2 {
   color: var(--navy-blue);
   margin-bottom: 12px;
   font-size: 32px;
-}
-
-.section-description {
-  color: var(--text-light);
-  margin-bottom: 30px;
+  text-align: center;
 }
 
 .ranks-ladder {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   background: white;
   padding: 30px;
@@ -110,25 +270,35 @@
 }
 
 .rank-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   background: var(--off-white);
   border-radius: 8px;
   transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  overflow: hidden;
 }
 
 .rank-item:hover {
-  background-color: var(--army-green);
-  color: white;
-  transform: translateX(8px);
+  border-color: var(--army-green);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.rank-item.expanded {
+  border-color: var(--army-green);
+  background: white;
+}
+
+.rank-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
 }
 
 .rank-level {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: var(--muted-gold);
   color: white;
   border-radius: 50%;
@@ -136,60 +306,375 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.rank-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .rank-name {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
+  color: var(--navy-blue);
 }
 
+.rank-insignia {
+  font-size: 16px;
+  color: var(--text-light);
+}
+
+.rank-years {
+  font-size: 14px;
+  color: var(--army-green);
+  font-weight: 600;
+  padding: 6px 12px;
+  background: white;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.rank-details {
+  padding: 0 16px 20px 16px;
+  animation: slideDown 0.3s ease;
+}
+
+.rank-description {
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.rank-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.rank-info-item {
+  background: var(--off-white);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.rank-info-item strong {
+  color: var(--army-green);
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.rank-info-item p {
+  color: var(--text-dark);
+  line-height: 1.5;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Academies Section */
+.academies-section {
+  margin-bottom: 60px;
+}
+
+.academies-section h2 {
+  color: var(--navy-blue);
+  font-size: 32px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.academies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.academy-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.academy-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border-color: var(--army-green);
+}
+
+.academy-icon {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.academy-card h3 {
+  font-size: 22px;
+  color: var(--navy-blue);
+  margin-bottom: 12px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.academy-location {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.academy-meta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.academy-established,
+.academy-duration {
+  background: var(--off-white);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--army-green);
+  font-weight: 600;
+}
+
+.academy-description {
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.academy-details {
+  background: var(--off-white);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.academy-detail-item {
+  margin-bottom: 12px;
+}
+
+.academy-detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.academy-detail-item strong {
+  color: var(--army-green);
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.academy-detail-item p {
+  color: var(--text-dark);
+  line-height: 1.5;
+  font-size: 14px;
+  margin: 0;
+}
+
+.academy-link {
+  display: block;
+  text-align: center;
+  padding: 12px 24px;
+  background-color: var(--army-green);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.academy-link:hover {
+  background-color: #3a4a1c;
+  transform: scale(1.02);
+}
+
+/* Checklist Section */
 .checklist-section {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .checklist-section h2 {
   color: var(--navy-blue);
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   text-align: center;
+  font-size: 28px;
 }
 
 .checklist {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .checklist-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
+  padding: 14px;
   background: var(--off-white);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
 .checklist-item:hover {
   background-color: rgba(74, 93, 35, 0.1);
+  border-color: var(--army-green);
 }
 
 .checklist-item input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
+  accent-color: var(--army-green);
 }
 
 .checklist-item span {
   flex: 1;
   color: var(--text-dark);
   font-size: 16px;
+  line-height: 1.5;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
-  .career-paths {
+  .career-page {
+    padding: 20px 0;
+  }
+
+  .page-header h1 {
+    font-size: 32px;
+  }
+
+  .page-header p {
+    font-size: 16px;
+  }
+
+  .career-note {
+    font-size: 14px;
+  }
+
+  .force-selector {
+    gap: 12px;
+  }
+
+  .force-btn {
+    padding: 16px 20px;
+    min-width: 120px;
+  }
+
+  .force-icon {
+    font-size: 28px;
+  }
+
+  .force-name {
+    font-size: 12px;
+  }
+
+  .career-paths-section h2,
+  .ranks-section h2,
+  .academies-section h2 {
+    font-size: 26px;
+  }
+
+  .career-paths-grid,
+  .academies-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .career-card,
+  .academy-card {
+    padding: 24px;
+  }
+
+  .career-card h3,
+  .academy-card h3 {
+    font-size: 20px;
+    min-height: auto;
+  }
+
+  .ranks-ladder {
+    padding: 20px;
+  }
+
+  .rank-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .rank-level {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .rank-name {
+    font-size: 16px;
+  }
+
+  .rank-years {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .checklist-section {
+    padding: 24px;
+  }
+
+  .checklist-section h2 {
+    font-size: 24px;
+  }
+
+  .checklist-item {
+    padding: 12px;
+  }
+
+  .checklist-item span {
+    font-size: 15px;
+  }
+
+  .career-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .force-selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .force-btn {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .academy-meta {
+    flex-direction: column;
+    gap: 8px;
   }
 }
