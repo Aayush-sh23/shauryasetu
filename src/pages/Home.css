@@ -1,0 +1,166 @@
+.home-page {
+  padding-bottom: 40px;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, var(--navy-blue) 0%, var(--army-green) 100%);
+  color: white;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 48px;
+  margin-bottom: 12px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 28px;
+  font-family: 'Merriweather', serif;
+  color: var(--saffron);
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-description {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.features-section {
+  padding: 60px 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 36px;
+  color: var(--navy-blue);
+  margin-bottom: 40px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--army-green);
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  color: var(--army-green);
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.feature-card p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.mission-section {
+  background-color: var(--off-white);
+  padding: 60px 0;
+  border-top: 3px solid var(--saffron);
+}
+
+.mission-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mission-content h2 {
+  font-size: 36px;
+  color: var(--navy-blue);
+  margin-bottom: 20px;
+}
+
+.mission-content > p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin-bottom: 30px;
+}
+
+.mission-points {
+  display: grid;
+  gap: 16px;
+  text-align: left;
+}
+
+.mission-point {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: var(--text-dark);
+}
+
+.point-icon {
+  color: var(--army-green);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 36px;
+  }
+  
+  .hero-subtitle {
+    font-size: 22px;
+  }
+  
+  .hero-description {
+    font-size: 16px;
+  }
+  
+  .section-title {
+    font-size: 28px;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
